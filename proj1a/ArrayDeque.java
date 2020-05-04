@@ -28,10 +28,17 @@ public class ArrayDeque<T> {
     /** Resizing the list. */
     private void resize(int cap) {
         T[] a = (T[]) new Object[cap];
-        int firstSize = items.length - nextFirst - 1;
-        int secondSize = size - firstSize;
-        System.arraycopy(items, nextFirst + 1, a, 0, firstSize);
-        System.arraycopy(items, 0, a, firstSize, secondSize);
+
+        if (nextFirst < nextLast) {
+            // go bigger.
+            System.arraycopy(items, nextFirst + 1, a, 0, size);
+        } else {
+            // go smaller.
+            int firstSize = items.length - nextFirst - 1;
+            int secondSize = size - firstSize;
+            System.arraycopy(items, nextFirst + 1, a, 0, firstSize);
+            System.arraycopy(items, 0, a, firstSize, secondSize);
+        }
 
         items = a;
         nextFirst = items.length - 1;
@@ -66,8 +73,7 @@ public class ArrayDeque<T> {
 
         if (nextFirst == 0) {
             nextFirst = items.length - 1;
-        }
-        else {
+        } else {
             nextFirst -= 1;
         }
     }
@@ -83,8 +89,7 @@ public class ArrayDeque<T> {
 
         if (nextLast == items.length - 1) {
             nextLast = 0;
-        }
-        else {
+        } else {
             nextLast += 1;
         }
     }

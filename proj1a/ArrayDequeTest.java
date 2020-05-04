@@ -112,4 +112,4 @@ public class ArrayDequeTest {
         addRemoveTest();
         constructorTest();
     }
-} 
+}
