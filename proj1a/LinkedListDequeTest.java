@@ -93,20 +93,20 @@ public class LinkedListDequeTest {
 	public static void constructorTest() {
 		System.out.println("Running constructor test.");
 
-		ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
-		ad1.addFirst(9);
-		ad1.addFirst(10);
-		ad1.addFirst(20);
+		LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+		lld1.addFirst(9);
+		lld1.addFirst(10);
+		lld1.addFirst(20);
 
-		ArrayDeque<Integer> ad2 = new ArrayDeque<Integer>(ad1);
+		LinkedListDeque<Integer> lld2 = new LinkedListDeque<Integer>(lld1);
 
-		boolean passed = checkEqual(ad1.get(0), ad2.get(0));
-		passed = passed && checkEqual(ad1.get(1), ad2.get(1));
-		passed = passed && checkEqual(ad1.get(2), ad2.get(2));
+		boolean passed = checkEqual(lld1.get(0), lld2.get(0));
+		passed = passed && checkEqual(lld1.get(1), lld2.get(1));
+		passed = passed && checkEqual(lld1.get(2), lld2.getRecursive(2));
 
 		// the origin list changed, but the new list didn't get affected.
-		ad1.removeFirst();
-		passed = passed && checkEqual(ad1.get(0), ad2.get(1));
+		lld1.removeFirst();
+		passed = passed && checkEqual(lld1.get(0), lld2.get(1));
 
 		printTestStatus(passed);
 	}

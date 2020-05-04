@@ -22,12 +22,12 @@ public class LinkedListDeque<T> {
     }
 
     /** Creates a list with the given item as the first object. */
-    public LinkedListDeque(LinkedListDeque<T> other) {
+    public LinkedListDeque(LinkedListDeque other) {
         size = other.size();
         Node lastNode = sentinel;
 
         for (int i = 0; i < size; i++) {
-            lastNode.next = new Node(other.get(i), lastNode, sentinel);
+            lastNode.next = new Node((T) other.get(i), lastNode, sentinel);
             lastNode = lastNode.next;
             sentinel.prev = lastNode;
         }
@@ -109,5 +109,19 @@ public class LinkedListDeque<T> {
     }
 
     /** Recursive version of get method. */
+    public T getRecursive(int index) {
+        if (index > size - 1)
+            return null;
 
+        return recursiveHelper(sentinel.next, index);
+    }
+
+    public T recursiveHelper(Node node, int index) {
+        if (index == 0) {
+            return (T) node.item;
+        }
+        else {
+            return recursiveHelper(node.next, index - 1);
+        }
+    }
 }

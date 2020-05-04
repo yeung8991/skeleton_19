@@ -13,11 +13,11 @@ public class ArrayDeque<T> {
     }
 
     /** Creates a list with the given item as the first object. */
-    public ArrayDeque(ArrayDeque<T> other) {
+    public ArrayDeque(ArrayDeque other) {
         items = (T[]) new Object[other.size() * 2];
 
         for (int i = 0; i < other.size(); i++) {
-            items[i] = other.get(i);
+            items[i] = (T) other.get(i);
         }
 
         size = other.size();
