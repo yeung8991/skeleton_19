@@ -63,7 +63,7 @@ public class LinkedListDeque<T> {
       */
     public void printDeque() {
         Node printed = sentinel.next;
-        while (printed.next != sentinel){
+        while (printed.next != sentinel) {
             System.out.print(printed.item + " ");
             printed = printed.next;
         }
@@ -72,6 +72,10 @@ public class LinkedListDeque<T> {
 
     /** Removes and returns the first item of the list. */
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
+
         size -= 1;
         Node deleted = sentinel.next;
         sentinel.next = sentinel.next.next;
@@ -84,6 +88,10 @@ public class LinkedListDeque<T> {
 
     /** Removes and returns the last item of the list. */
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
+
         size -= 1;
         Node deleted = sentinel.prev;
         sentinel.prev = sentinel.prev.prev;
@@ -98,8 +106,9 @@ public class LinkedListDeque<T> {
       * exists, returns null.
       */
     public T get(int index) {
-        if (index > size - 1)
+        if (index > size - 1) {
             return null;
+        }
 
         Node getNode;
         for (getNode = sentinel.next; index > 0; index--) {
@@ -110,16 +119,18 @@ public class LinkedListDeque<T> {
 
     /** Recursive version of get method. */
     public T getRecursive(int index) {
-        if (index > size - 1)
+        if (index > size - 1){
             return null;
+        }
 
         return recursiveHelper(sentinel.next, index);
     }
 
-    public T recursiveHelper(Node node, int index) {
+    private T recursiveHelper(Node node, int index) {
         if (index == 0) {
             return (T) node.item;
         }
+
         else {
             return recursiveHelper(node.next, index - 1);
         }

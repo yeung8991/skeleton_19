@@ -42,8 +42,9 @@ public class ArrayDeque<T> {
     private int indexCounter(int index) {
         int actualIndex = nextFirst + index + 1;
 
-        if (actualIndex >= items.length)
+        if (actualIndex >= items.length) {
             actualIndex -= items.length;
+        }
 
         return actualIndex;
     }
@@ -62,10 +63,13 @@ public class ArrayDeque<T> {
         items[nextFirst] = item;
         size += 1;
 
-        if (nextFirst == 0)
+
+        if (nextFirst == 0) {
             nextFirst = items.length - 1;
-        else
+        }
+        else {
             nextFirst -= 1;
+        }
     }
 
     /** Adds an item to the end of the list. */
@@ -77,10 +81,12 @@ public class ArrayDeque<T> {
         items[nextLast] = item;
         size += 1;
 
-        if (nextLast == items.length - 1)
+        if (nextLast == items.length - 1) {
             nextLast = 0;
-        else
+        }
+        else {
             nextLast += 1;
+        }
     }
 
     /** Returns true if deque is empty, false otherwise. */
@@ -109,26 +115,38 @@ public class ArrayDeque<T> {
 
     /** Removes and returns the first item of the list. */
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
+
         size -= 1;
         nextFirst += 1;
-        if (nextFirst == items.length)
+        if (nextFirst == items.length) {
             nextFirst = 0;
+        }
 
-        if (size > 16 && usageCounter() < 0.25)
+        if (size > 16 && usageCounter() < 0.25) {
             resize(size * 2);
+        }
 
         return items[nextFirst];
     }
 
     /** Removes and returns the last item of the list. */
     public T removeLast() {
+        if (size == 0) {
+            return null;
+        }
+
         size -= 1;
         nextLast -= 1;
-        if (nextLast < 0)
+        if (nextLast < 0) {
             nextLast += items.length;
+        }
 
-        if (size > 16 && usageCounter() < 0.25)
+        if (size > 16 && usageCounter() < 0.25) {
             resize(size * 2);
+        }
 
         return items[nextLast];
     }
@@ -138,8 +156,9 @@ public class ArrayDeque<T> {
      * exists, returns null.
      */
     public T get(int index) {
-        if (index > size - 1)
+        if (index > size - 1) {
             return null;
+        }
         return items[indexCounter(index)];
     }
 }
