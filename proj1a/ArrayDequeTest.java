@@ -106,10 +106,28 @@ public class ArrayDequeTest {
         printTestStatus(passed);
     }
 
+    public static void resizeTest() {
+        System.out.println("Running resize method test.");
+
+        // Creating a size 32 array list.
+        ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
+        for (int i = 0; i < 32; i++) {
+            ad1.addFirst(1);
+        }
+
+        // Deletes it all but one item.
+        for (int i = 31; i > 0; i--) {
+            ad1.removeLast();
+        }
+
+    }
+
+
     public static void main(String[] args) {
         System.out.println("Running tests.\n");
         addIsEmptySizeTest();
         addRemoveTest();
         constructorTest();
+        resizeTest();
     }
 }

@@ -130,7 +130,7 @@ public class ArrayDeque<T> {
             nextFirst = 0;
         }
 
-        if (size > 16 && usageCounter() < 0.25) {
+        if (items.length > 16 && usageCounter() < 0.25) {
             resize(size * 2);
         }
 
@@ -149,7 +149,7 @@ public class ArrayDeque<T> {
             nextLast += items.length;
         }
 
-        if (size > 16 && usageCounter() < 0.25) {
+        if (items.length > 16 && usageCounter() < 0.25) {
             resize(size * 2);
         }
 
