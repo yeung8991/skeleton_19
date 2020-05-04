@@ -30,14 +30,16 @@ public class ArrayDeque<T> {
         T[] a = (T[]) new Object[cap];
 
         if (nextFirst < nextLast) {
-            // go bigger.
             System.arraycopy(items, nextFirst + 1, a, 0, size);
         } else {
-            // go smaller.
             int firstSize = items.length - nextFirst - 1;
             int secondSize = size - firstSize;
-            System.arraycopy(items, nextFirst + 1, a, 0, firstSize);
-            System.arraycopy(items, 0, a, firstSize, secondSize);
+            if (firstSize != 0) {
+                System.arraycopy(items, nextFirst + 1, a, 0, firstSize);
+            }
+            if (secondSize != 0) {
+                System.arraycopy(items, 0, a, firstSize, secondSize);
+            }
         }
 
         items = a;
@@ -64,7 +66,7 @@ public class ArrayDeque<T> {
     /** Adds an item to the front of the list. */
     public void addFirst(T item) {
         if (nextFirst == nextLast) {
-            resize(size * 2);
+            resize(items.length * 2);
         }
 
         items[nextFirst] = item;
@@ -81,7 +83,7 @@ public class ArrayDeque<T> {
     /** Adds an item to the end of the list. */
     public void addLast(T item) {
         if (nextFirst == nextLast) {
-            resize(size * 2);
+            resize(items.length * 2);
         }
 
         items[nextLast] = item;
@@ -129,12 +131,13 @@ public class ArrayDeque<T> {
         if (nextFirst == items.length) {
             nextFirst = 0;
         }
+        T val = items[nextFirst];
 
         if (items.length > 16 && usageCounter() < 0.25) {
-            resize(size * 2);
+            resize(items.length / 2);
         }
 
-        return items[nextFirst];
+        return val;
     }
 
     /** Removes and returns the last item of the list. */
@@ -148,12 +151,13 @@ public class ArrayDeque<T> {
         if (nextLast < 0) {
             nextLast += items.length;
         }
+        T val = items[nextLast];
 
         if (items.length > 16 && usageCounter() < 0.25) {
-            resize(size * 2);
+            resize(items.length / 2);
         }
 
-        return items[nextLast];
+        return val;
     }
 
 
