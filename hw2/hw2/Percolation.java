@@ -32,6 +32,7 @@ public class Percolation {
      * and union its neighbours.
      */
     public void open(int row, int col) {
+        validate(row, col);
         if (isOpen(row, col)) {
             return;
         }
@@ -40,7 +41,7 @@ public class Percolation {
         if (row == 0) {
             uF.union(0, xyTo1D(row, col));
         }
-        if (row == gridSize - 1) {
+        if (isFull(row, col) && row == gridSize - 1) {
             uF.union(1, xyTo1D(row, col));
         }
         unionNeighbours(row, col);
@@ -50,6 +51,7 @@ public class Percolation {
      * Return true if the given pos is an open site.
      */
     public boolean isOpen(int row, int col) {
+        validate(row, col);
         if (grid[row][col] == 1) {
             return true;
         }
@@ -60,6 +62,7 @@ public class Percolation {
      * Return true if the given pos is an full site.
      */
     public boolean isFull(int row, int col) {
+        validate(row, col);
         return uF.connected(0, xyTo1D(row, col));
     }
 
@@ -104,17 +107,13 @@ public class Percolation {
             int newRow = row + neighbour[0];
             int newCol = col + neighbour[1];
             if (newRow < 0
-             || newCol < 0
-             || newRow >= gridSize
-             || newCol >= gridSize
-             || grid[newRow][newCol] == 0) {
+                || newCol < 0
+                || newRow >= gridSize
+                || newCol >= gridSize
+                || grid[newRow][newCol] == 0) {
                 continue;
             }
             uF.union(xyTo1D(row, col), xyTo1D(newRow, newCol));
         }
-    }
-
-    public static void main(String[] args) {
-
     }
 }
