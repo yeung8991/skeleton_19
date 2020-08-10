@@ -116,4 +116,8 @@ public class Percolation {
             uF.union(xyTo1D(row, col), xyTo1D(newRow, newCol));
         }
     }
+
+    public static void main(String[] args) {
+
+    }
 }
