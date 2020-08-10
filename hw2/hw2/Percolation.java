@@ -52,6 +52,7 @@ public class Percolation {
             for (int i = 0; i < gridSize; i++) {
                 if (isFull(gridSize - 1, i)) {
                     uF.union(1, xyTo1D(gridSize - 1, i));
+                    break;
                 }
             }
         }
