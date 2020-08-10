@@ -41,10 +41,10 @@ public class Percolation {
         if (row == 0) {
             uF.union(0, xyTo1D(row, col));
         }
-        if (isFull(row, col) && row == gridSize - 1) {
+        unionNeighbours(row, col);
+        if (isFull(row, col)) {
             uF.union(1, xyTo1D(row, col));
         }
-        unionNeighbours(row, col);
     }
 
     /*
