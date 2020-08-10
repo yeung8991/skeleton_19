@@ -32,11 +32,15 @@ public class Percolation {
      * and union its neighbours.
      */
     public void open(int row, int col) {
+        if (isOpen(row, col)) {
+            return;
+        }
         grid[row][col] = 1;
         openSitesNum += 1;
         if (row == 0) {
             uF.union(0, xyTo1D(row, col));
-        } else if (row == gridSize - 1) {
+        }
+        if (row == gridSize - 1) {
             uF.union(1, xyTo1D(row, col));
         }
         unionNeighbours(row, col);
@@ -80,7 +84,7 @@ public class Percolation {
      * Validate if the row and col is inside the range.
      */
     private void validate(int row, int col) {
-        if (row < 0 || col < 0 || row >= gridSize || col >= gridSizeg) {
+        if (row < 0 || col < 0 || row >= gridSize || col >= gridSize) {
             throw new IndexOutOfBoundsException("Index out of bounds.");
         }
     }
