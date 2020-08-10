@@ -27,7 +27,7 @@ public class PercolationStats {
                 p.open(row, col);
 
                 if (p.percolates()) {
-                    thresholds[i] = j / N * N;
+                    thresholds[i] = (double) j / (N * N);
                     break;
                 }
             }
