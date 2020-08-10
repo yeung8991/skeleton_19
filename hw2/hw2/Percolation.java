@@ -8,6 +8,7 @@ public class Percolation {
     private int gridSize;
     private int openSitesNum;
     private WeightedQuickUnionUF uF;
+    private WeightedQuickUnionUF uFNoBottom;
 
     public Percolation(int N) {
         if (N < 0) {
@@ -16,6 +17,7 @@ public class Percolation {
 
         grid = new int[N][N];
         uF = new WeightedQuickUnionUF(N * N + 2);
+        uFNoBottom = new WeightedQuickUnionUF(N * N + 2);
         gridSize = N;
         openSitesNum = 0;
 
@@ -43,19 +45,12 @@ public class Percolation {
         // 0 represents the top, and 1 represents the bottom.
         if (row == 0) {
             uF.union(0, xyTo1D(row, col));
+            uFNoBottom.union(0, xyTo1D(row, col));
+        }
+        if (row == gridSize - 1) {
+            uF.union(1, xyTo1D(row, col));
         }
         unionNeighbours(row, col);
-
-        // If there is any site at last row that connects to the top,
-        // then connect that site to the bottom.
-        if (!percolates()) {
-            for (int i = 0; i < gridSize; i++) {
-                if (isFull(gridSize - 1, i)) {
-                    uF.union(1, xyTo1D(gridSize - 1, i));
-                    break;
-                }
-            }
-        }
     }
 
     /*
@@ -74,7 +69,7 @@ public class Percolation {
      */
     public boolean isFull(int row, int col) {
         validate(row, col);
-        return uF.connected(0, xyTo1D(row, col));
+        return uFNoBottom.connected(0, xyTo1D(row, col));
     }
 
     /*
@@ -125,6 +120,7 @@ public class Percolation {
                 continue;
             }
             uF.union(xyTo1D(row, col), xyTo1D(newRow, newCol));
+            uFNoBottom.union(xyTo1D(row, col), xyTo1D(newRow, newCol));
         }
     }
 

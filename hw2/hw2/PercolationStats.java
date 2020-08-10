@@ -35,20 +35,18 @@ public class PercolationStats {
     }
 
     public double mean() {
-        mean = StdStats.mean(thresholds);
-        return mean;
+        return StdStats.mean(thresholds);
     }
 
     public double stddev() {
-        stddev = StdStats.stddev(thresholds);
-        return stddev;
+        return StdStats.stddev(thresholds);
     }
 
     public double confidenceLow() {
-        return mean - ((1.96 * stddev) / Math.sqrt(expTimes));
+        return mean() - ((1.96 * stddev()) / Math.sqrt(expTimes));
     }
 
     public double confidenceHigh() {
-        return mean + ((1.96 * stddev) / Math.sqrt(expTimes));
+        return mean() + ((1.96 * stddev()) / Math.sqrt(expTimes));
     }
 }
