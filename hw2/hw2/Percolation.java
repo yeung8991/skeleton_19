@@ -38,12 +38,22 @@ public class Percolation {
         }
         grid[row][col] = 1;
         openSitesNum += 1;
+
+        // If the site is at the top row, connect it to the top.
+        // 0 represents the top, and 1 represents the bottom.
         if (row == 0) {
             uF.union(0, xyTo1D(row, col));
         }
         unionNeighbours(row, col);
-        if (isFull(row, col)) {
-            uF.union(1, xyTo1D(row, col));
+
+        // If there is any site at last row that connects to the top,
+        // then connect that site to the bottom.
+        if (!percolates()) {
+            for (int i = 0; i < gridSize; i++) {
+                if (isFull(gridSize - 1, i)) {
+                    uF.union(1, xyTo1D(gridSize - 1, i));
+                }
+            }
         }
     }
 
