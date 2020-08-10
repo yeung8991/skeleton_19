@@ -15,7 +15,7 @@ public class Percolation {
         }
 
         grid = new int[N][N];
-        uF = new WeightedQuickUnionUF(N * N + 2);          //0 represents the top, 1 represents bottom.
+        uF = new WeightedQuickUnionUF(N * N + 2);
         gridSize = N;
         openSitesNum = 0;
 
@@ -80,7 +80,7 @@ public class Percolation {
      * Validate if the row and col is inside the range.
      */
     private void validate(int row, int col) {
-        if (row < 0 || col < 0 || row >= gridSize || col >= gridSize ) {
+        if (row < 0 || col < 0 || row >= gridSize || col >= gridSizeg) {
             throw new IndexOutOfBoundsException("Index out of bounds.");
         }
     }
@@ -99,7 +99,11 @@ public class Percolation {
         for (int[] neighbour : neighbours) {
             int newRow = row + neighbour[0];
             int newCol = col + neighbour[1];
-            if (newRow < 0 || newCol < 0 || newRow >= gridSize || newCol >= gridSize || grid[newRow][newCol] == 0) {
+            if (newRow < 0
+             || newCol < 0
+             || newRow >= gridSize
+             || newCol >= gridSize
+             || grid[newRow][newCol] == 0) {
                 continue;
             }
             uF.union(xyTo1D(row, col), xyTo1D(newRow, newCol));
