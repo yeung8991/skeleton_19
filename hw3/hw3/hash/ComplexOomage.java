@@ -13,7 +13,7 @@ public class ComplexOomage implements Oomage {
     public int hashCode() {
         int total = 0;
         for (int x : params) {
-            total = total * 256;
+            total = total * 257;
             total = total + x;
         }
         return total;
@@ -79,6 +79,7 @@ public class ComplexOomage implements Oomage {
         }
         return new ComplexOomage(params);
     }
+
 
     public static void main(String[] args) {
         System.out.println("Drawing 4 random complex Oomages.");

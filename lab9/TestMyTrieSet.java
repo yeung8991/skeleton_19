@@ -46,18 +46,19 @@ public class TestMyTrieSet {
         }
 
         List<String> keys = t.keysWithPrefix("sa");
+
         for (String s: saStrings) {
             assertTrue(keys.contains(s));
         }
         for (String s: otherStrings) {
             assertFalse(keys.contains(s));
         }
+
+        /* Test the longestPrefixOf method */
+        assertEquals("same", t.longestPrefixOf("sameeassdf"));
     }
 
     public static void main(String[] args) {
         jh61b.junit.TestRunner.runTests(TestMyTrieSet.class);
     }
-
-
-
 }
